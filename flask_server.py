@@ -14,6 +14,7 @@ import numpy
 from PIL import Image
 from StringIO import StringIO
 import gym
+from gym.spaces import prng as action_space_prng
 
 print "Starting Flask Server at http://localhost:8938"
 app = Flask('openaigym', static_folder='.', static_url_path='')
@@ -92,7 +93,7 @@ def _simulate_trajectory(seed, parameters, generate_video=False):
                       seed=seed,
                       video_callable=lambda count: generate_video)
     agent = RandomAgent(env.action_space)
-    agent.action_space.seed_prng(seed)
+    action_space_prng.seed(seed)
 
     trajectory = []
     reward = 0
