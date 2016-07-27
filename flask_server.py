@@ -25,9 +25,10 @@ parser.add_argument('domain', metavar='D', type=str,
 parser.add_argument('outdir', metavar='O', type=str,
                     help='the directory used to temporarily store videos rendered within MDPvis',
                     default='/tmp/random-agent-results')
-parser.add_argument('perception', metavar='P', type=bool,
+parser.add_argument('--perception',
                     help='flag indicates whether the domain has raw perception state, such as an Atari domain',
-                    default=False)
+                    dest='perception', action='store_true')
+parser.set_defaults(perception=False)
 parser.add_argument('names', metavar='N', type=str, nargs='*',
                     help='the names of the dimensions of the state')
 args = vars(parser.parse_args())
@@ -38,11 +39,11 @@ output_directory = args["outdir"]
 
 print "Starting {} with variable names {}".format(domain_name, dimension_names)
 print "You can start other domains with the following commands:\n"
-print "python flask_server.py CartPole-v0 /tmp/random-agent-results True x x_dot theta theta_dot"
-print "python flask_server.py Pendulum-v0 /tmp/random-agent-results True cos(theta) sin(theta) thetadot"
-print "python flask_server.py MountainCar-v0 /tmp/random-agent-results True position velocity"
-print "python flask_server.py Acrobot-v0 /tmp/random-agent-results True angle1 angle2 speed1 speed2"
-print "python flask_server.py MsPacman-v0 /tmp/random-agent-results True"
+print "python flask_server.py CartPole-v0 /tmp/random-agent-results x x_dot theta theta_dot"
+print "python flask_server.py Pendulum-v0 /tmp/random-agent-results cos(theta) sin(theta) thetadot"
+print "python flask_server.py MountainCar-v0 /tmp/random-agent-results position velocity"
+print "python flask_server.py Acrobot-v0 /tmp/random-agent-results angle1 angle2 speed1 speed2"
+print "python flask_server.py MsPacman-v0 /tmp/random-agent-results --perception"
 print "\n\nOther domains are possible if you change the domain and dimension names appropriately."
 
 
